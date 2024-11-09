@@ -23,31 +23,39 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
-	//TODO: parse parameter: size of the vector in KiB
-	//TODO: parse parameter: runtime in milliseconds
-	//TODO: allocate memory and initialize it with nonzero values
+	//parse parameter: size of the vector in KiB
+	array_size_bytes = strtoull(argv[1], NULL, 10) * 1024;
+	//parse parameter: runtime in milliseconds
+	minimal_runtime_ms = strtoull(argv[2], NULL, 10);
+	//allocate memory and initialize it with nonzero values
+	float* array = (float*)malloc(array_size_bytes);
+	int32_t array_size = array_size_bytes / sizeof(float);
+	for(int32_t i = 0; i < array_size; i++){
+		array[i] = 1.0;
+	}
 
+	
 	for(runs = 1u; actual_runtime_us < minimal_runtime_ms * 1000; runs = runs << 1u) {
 		start = get_time_micros();
 		for(uint64_t i = 0u; i < runs; i++) {
-			// TODO
-			vec_sum(NULL, 0);
+			vec_sum(array, array_size);
 		}
 		stop  = get_time_micros();
 		actual_runtime_us = stop - start;
+		fprintf(stdout, "%" PRIu64 ",%" PRIu64 "\n", actual_runtime_us, (unsigned long)runs );
 	}
-	runs /= 2; // TODO Explain/comment why this is necessary
+	runs=runs>>1u;// TODO Explain/comment why this is necessary
+
  
 	//TODO: calculate and print
-	adds_per_second = 0.0; // Measured performance as floating point additions per second
+	adds_per_second = (double)array_size / actual_runtime_us * runs * 1e6; // Measured performance as floating point additions per second
 
 	// The ouput format:
 	// 	1. uint64_t array size in bytes
 	// 	2. double   number of additions per second
 	// 	3. uint64_t actual runtime in milliseconds
 	// 	4. uint64_t minimal runtime in milliseconds
-	fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", array_size_bytes, adds_per_second, actual_runtime_us/1000, minimal_runtime_ms);
-
+	fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", array_size_bytes, adds_per_second, actual_runtime_us, minimal_runtime_ms);
 	return 0;
 }
 
