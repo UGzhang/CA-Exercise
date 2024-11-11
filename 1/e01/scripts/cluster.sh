@@ -1,7 +1,7 @@
 #!/bin/bash -l
   
 #SBATCH --partition=singlenode
-#SBATCH --time=00:05:00
+#SBATCH --time=00:08:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -17,8 +17,6 @@ set -v
 export SLURM_EXPORT_ENV=ALL
 export SRUN_CPUS_PER_TASK=1  # value should match the SBATCH --cpus-per-task option
 
-# This line creates / overrides a result csv file
-echo "ArraySize,AdditionsPerSecond,ActualRuntime,MinimalRuntime" > result.csv
 
 module load intel
 make clean -C ../
@@ -28,15 +26,20 @@ make -C ../
 # execute measurement with for loop over exponentially distributed runtime: 1ms - 10s , each run with 512 KiB set as the array size.
 # Choose a reasonable number of measurement points.
 # results should be appended to the result.csv (see '>>' operator)
+
 runtime_ms=1
 array_size=512
 
+# This line creates / overrides a result csv file
+echo "ArraySize,AdditionsPerSecond,ActualRuntime,MinimalRuntime" > result-1-2.csv
+
 while [ $runtime_ms -le 10000 ]
 do
-    srun ../bin/vecSum  $array_size $runtime_ms >> result.csv
+    srun ../bin/vecSum  $array_size $runtime_ms >> result-1-2.csv
     runtime_ms=$(( runtime_ms * 2 ))
     
 done
+
 
 
 # TODO 1.3 Run benchmark with varying array sizes and fixed runtime
@@ -54,11 +57,17 @@ done
 
 runtime_ms=1000
 STEPS=16
+
+# This line creates / overrides a result csv file
+echo "ArraySize,AdditionsPerSecond,ActualRuntime,MinimalRuntime" > result-1-3.csv
+
 for i in $(seq 0 $((STEPS-1)))
 do
 
     array_size=$((2 ** i))
-    srun ../bin/vecSum $array_size $runtime_ms >> result.csv
+    srun ../bin/vecSum $array_size $runtime_ms >> result-1-3.csv
 
 done
 
+
+gnuplot plot.gp 

@@ -30,10 +30,10 @@ int main(int argc, char *argv[]) {
 	//allocate memory and initialize it with nonzero values
 	float* array = (float*)malloc(array_size_bytes);
 	int32_t array_size = array_size_bytes / sizeof(float);
+	
 	for(int32_t i = 0; i < array_size; i++){
 		array[i] = 1.0;
 	}
-
 	
 	for(runs = 1u; actual_runtime_us < minimal_runtime_ms * 1000; runs = runs << 1u) {
 		start = get_time_micros();
@@ -42,10 +42,9 @@ int main(int argc, char *argv[]) {
 		}
 		stop  = get_time_micros();
 		actual_runtime_us = stop - start;
-		fprintf(stdout, "%" PRIu64 ",%" PRIu64 "\n", actual_runtime_us, (unsigned long)runs );
 	}
-	runs=runs>>1u;// TODO Explain/comment why this is necessary
 
+	runs /= 2; // TODO Explain/comment why this is necessary
  
 	//TODO: calculate and print
 	adds_per_second = (double)array_size / actual_runtime_us * runs * 1e6; // Measured performance as floating point additions per second
@@ -55,7 +54,10 @@ int main(int argc, char *argv[]) {
 	// 	2. double   number of additions per second
 	// 	3. uint64_t actual runtime in milliseconds
 	// 	4. uint64_t minimal runtime in milliseconds
-	fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", array_size_bytes, adds_per_second, actual_runtime_us, minimal_runtime_ms);
+	fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", array_size_bytes, adds_per_second, actual_runtime_us/1000, minimal_runtime_ms);
+
+	free(array);
+
 	return 0;
 }
 
