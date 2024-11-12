@@ -3,6 +3,7 @@
 #include <stdio.h> 
 
 #include "jacobi.h"
+#include "draw.h"
 #include "get_time.h"
 
 #define Type double
@@ -50,6 +51,7 @@ int main(int argc, char *argv[]){
         target[j * dx] = 1.0;
     }
 
+
     uint64_t start = get_time_micros();
 
     for(uint32_t t = 0; t < ts; t++){
@@ -60,6 +62,15 @@ int main(int argc, char *argv[]){
     uint64_t stop = get_time_micros();
 
     uint64_t runtime_ms = (stop - start) / 1000;
+
+    // for(uint32_t j = 0; j < dy; j++){
+	// 	for(uint32_t i = 0; i < dx; i++){
+    //         printf("%lf ", target[i + j * dx]);
+    //     }
+    //     printf("\n");
+    // }
+
+    draw_grid(source, dx, dy, "./data.ppm");
     
     _mm_free(source);
     _mm_free(target);

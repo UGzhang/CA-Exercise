@@ -26,7 +26,7 @@ clean:
 
 jacobi: $(BIN_PATH)/jacobi
 
-$(BIN_PATH)/jacobi: $(BUILD_PATH)/main.o $(BUILD_PATH)/jacobi.o $(BUILD_PATH)/get_time.o
+$(BIN_PATH)/jacobi: $(BUILD_PATH)/main.o $(BUILD_PATH)/jacobi.o $(BUILD_PATH)/get_time.o $(BUILD_PATH)/draw.o
 	mkdir -p $(dir $@)
 	$(CC) $(INC_FLAGS) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
