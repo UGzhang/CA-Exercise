@@ -32,8 +32,8 @@ int main(int argc, char *argv[]){
     const uint64_t allocated_mem = strtoull(argv[1], NULL, 10);
     const uint32_t edge_length = sqrt(allocated_mem * 1024 / (2 * sizeof(Type)));
 
-    const uint32_t dx = edge_length;
-    const uint32_t dy = edge_length;
+    const int32_t dx = edge_length;
+    const int32_t dy = edge_length;
 
     const uint64_t size = dx * dy * sizeof(Type);
     Type* source = (Type*)_mm_malloc(size, 64);
@@ -74,7 +74,7 @@ int main(int argc, char *argv[]){
 
     // draw_grid(source, dx, dy, "./data.ppm");
 
-    double mega_updates_per_sec = dx * dy * ts * 1e-6 /((double)actual_runtime_us * 1e-6); 
+    double mega_updates_per_sec = (dx-2) * (dy-2) * ts * 1e-6 /((double)actual_runtime_us * 1e-6); 
 
     // The ouput format:
 	// 	1. uint64_t allocate memory in KiB
