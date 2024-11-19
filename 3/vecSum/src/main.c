@@ -46,15 +46,15 @@ int main(int argc, char *argv[]) {
 
 	runs /= 2; // TODO Explain/comment why this is necessary
  
-	//TODO: calculate and print
+	//calculate and print
 	adds_per_second = (double)array_size / actual_runtime_us * runs * 1e6; // Measured performance as floating point additions per second
 
 	// The ouput format:
-	// 	1. uint64_t array size in bytes
+	// 	1. uint64_t array size in KiB
 	// 	2. double   number of additions per second
 	// 	3. uint64_t actual runtime in milliseconds
 	// 	4. uint64_t minimal runtime in milliseconds
-	fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", array_size_bytes, adds_per_second, actual_runtime_us/1000, minimal_runtime_ms);
+	fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", array_size_bytes/1024, adds_per_second, actual_runtime_us/1000, minimal_runtime_ms);
 
 	free(array);
 
