@@ -17,6 +17,8 @@ INC_FLAGS := $(addprefix -iquote ,$(INC_DIRS))
 
 CC      := icx
 CFLAGS  := -Wall -pedantic -Werror -std=c99 -O3 -xHost
+UNROLLTYPE ?= 4
+CFLAGS += -DUNROLLTYPE=$(UNROLLTYPE)
 
 LDFLAGS := 
 all: jacobi # program is named jacobi
