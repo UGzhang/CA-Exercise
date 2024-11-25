@@ -16,7 +16,7 @@ INC_DIRS  := $(sort $(shell find $(INC_PATH) -type d))
 INC_FLAGS := $(addprefix -iquote ,$(INC_DIRS))
 
 CC      := icx
-CFLAGS  := -Wall -pedantic -Werror -std=c99 -O3 -xHost
+CFLAGS  := -Wall -pedantic -Werror -std=c99 -O1
 UNROLLTYPE ?= 4
 CFLAGS += -DUNROLLTYPE=$(UNROLLTYPE)
 

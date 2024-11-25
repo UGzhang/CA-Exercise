@@ -36,14 +36,14 @@ void jacobi(const double * restrict grid_source, double * restrict grid_target, 
 	for(int32_t j = 1; j < y-1; j++){
 		#pragma nounroll
 		#pragma novector		
-		for(int32_t i = 1; i < x-4; i+=4){
+		for(int32_t i = 1; i < x-1-remainder; i+=4){
 			grid_target(i,j)    = 0.25 * (grid_source(i-1,j)  + grid_source(i+1,j)  + grid_source(i,j-1)    + grid_source(i,j+1));
 			grid_target(i+1,j)  = 0.25 * (grid_source(i,j)    + grid_source(i+2,j)  + grid_source(i+1,j-1)  + grid_source(i+1,j+1));
 			grid_target(i+2,j)  = 0.25 * (grid_source(i+1,j)  + grid_source(i+3,j)  + grid_source(i+2,j-1)  + grid_source(i+2,j+1));
 			grid_target(i+3, j) = 0.25 * (grid_source(i+2, j) + grid_source(i+4, j) + grid_source(i+3, j-1) + grid_source(i+3, j+1));
 		}
 
-    	for (int32_t i = x - remainder; i < x-1; i++) {
+    	for (int32_t i = x-remainder-1; i < x-1; i++) {
         	grid_target(i,j) = 0.25 * (grid_source(i-1,j) + grid_source(i+1,j) + grid_source(i,j-1) + grid_source(i,j+1));
     	}
 
@@ -54,9 +54,9 @@ void jacobi(const double * restrict grid_source, double * restrict grid_target, 
 	for(int32_t j = 1; j < y-1; j++){
 		#pragma nounroll
 		#pragma novector		
-		for(int32_t i = 1; i < x-8; i+=8){
-			grid_target(i,j)    = 0.25 * (grid_source(i-1,j)  + grid_source(i+1,j)  + grid_source(i,j-1)    + grid_source(i,j+1));
-			grid_target(i+1,j)  = 0.25 * (grid_source(i,j)    + grid_source(i+2,j)  + grid_source(i+1,j-1)  + grid_source(i+1,j+1));
+		for(int32_t i = 1; i < x-1-remainder; i+=8){
+			grid_target(i,j)    = 0.25 * (grid_source(i-1,j)  + grid_source(i+1,j)  + grid_source(i,j-1)    + grid_source(i,   j+1));
+			grid_target(i+1,j)  = 0.25 * (grid_source(i,j)    + grid_source(i+2,j)  + grid_source(i+1,j-1)  + grid_source(i+1, j+1));
 			grid_target(i+2,j)  = 0.25 * (grid_source(i+1,j)  + grid_source(i+3,j)  + grid_source(i+2,j-1)  + grid_source(i+2,j+1));
 			grid_target(i+3, j) = 0.25 * (grid_source(i+2, j) + grid_source(i+4, j) + grid_source(i+3, j-1) + grid_source(i+3, j+1));
 			grid_target(i+4, j) = 0.25 * (grid_source(i+3, j) + grid_source(i+5, j) + grid_source(i+4, j-1) + grid_source(i+4, j+1));
@@ -66,9 +66,10 @@ void jacobi(const double * restrict grid_source, double * restrict grid_target, 
 
 		}
 
-    	for (int32_t i = x - remainder; i < x-1; i++) {
+    	for (int32_t i = x-remainder-1; i < x-1; i++) {
         	grid_target(i,j) = 0.25 * (grid_source(i-1,j) + grid_source(i+1,j) + grid_source(i,j-1) + grid_source(i,j+1));
     	}
+
 	}
 
 
@@ -77,7 +78,7 @@ void jacobi(const double * restrict grid_source, double * restrict grid_target, 
 	for(int32_t j = 1; j < y-1; j++){
 		#pragma nounroll
 		#pragma novector		
-		for(int32_t i = 1; i < x-16; i+=16){
+		for(int32_t i = 1; i < x-1-remainder; i+=16){
 			grid_target(i,j)    = 0.25 * (grid_source(i-1,j)  + grid_source(i+1,j)  + grid_source(i,j-1)    + grid_source(i,j+1));
 			grid_target(i+1,j)  = 0.25 * (grid_source(i,j)    + grid_source(i+2,j)  + grid_source(i+1,j-1)  + grid_source(i+1,j+1));
 			grid_target(i+2,j)  = 0.25 * (grid_source(i+1,j)  + grid_source(i+3,j)  + grid_source(i+2,j-1)  + grid_source(i+2,j+1));
@@ -97,7 +98,7 @@ void jacobi(const double * restrict grid_source, double * restrict grid_target, 
 
 		}
 
-    	for (int32_t i = x - remainder; i < x-1; i++) {
+    	for (int32_t i = x-remainder-1; i < x-1; i++) {
         	grid_target(i,j) = 0.25 * (grid_source(i-1,j) + grid_source(i+1,j) + grid_source(i,j-1) + grid_source(i,j+1));
     	}
 	}

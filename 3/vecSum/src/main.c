@@ -32,8 +32,10 @@ int main(int argc, char *argv[]) {
 	int32_t array_size = array_size_bytes / sizeof(float);
 	
 	for(int32_t i = 0; i < array_size; i++){
-		array[i] = 1.0;
+		array[i] = (float)i;
 	}
+
+	float result = 0.f;
 	
 	for(runs = 1u; actual_runtime_us < minimal_runtime_ms * 1000; runs = runs << 1u) {
 		start = get_time_micros();
@@ -45,6 +47,9 @@ int main(int argc, char *argv[]) {
 	}
 
 	runs /= 2; // TODO Explain/comment why this is necessary
+
+	// result check
+	// printf("%f, %d\n", result, array_size*(array_size-1)/2);
  
 	//calculate and print
 	adds_per_second = (double)array_size / actual_runtime_us * runs * 1e6; // Measured performance as floating point additions per second
