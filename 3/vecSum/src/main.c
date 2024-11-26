@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <immintrin.h>
 #include <stdlib.h>
 #include <inttypes.h>
 #include "vec_sum.h"
@@ -28,14 +29,14 @@ int main(int argc, char *argv[]) {
 	//parse parameter: runtime in milliseconds
 	minimal_runtime_ms = strtoull(argv[2], NULL, 10);
 	//allocate memory and initialize it with nonzero values
-	float* array = (float*)malloc(array_size_bytes);
+	float* array = (float*)_mm_malloc(array_size_bytes, 64);
 	int32_t array_size = array_size_bytes / sizeof(float);
 	
 	for(int32_t i = 0; i < array_size; i++){
 		array[i] = (float)i;
 	}
 
-	float result = 0.f;
+	// float result = 0.f;
 	
 	for(runs = 1u; actual_runtime_us < minimal_runtime_ms * 1000; runs = runs << 1u) {
 		start = get_time_micros();

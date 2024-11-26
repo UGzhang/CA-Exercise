@@ -13,34 +13,6 @@ float vec_sum(const float * restrict array, int32_t length) {
 	}
 	sum_all = sum;
 
-#elif UNROLLTYPE == 2
-	float sum[]={0.0f,0.0f};
-	int32_t remainder = length % 2;
-	#pragma nounroll
-	#pragma novector
-	for(int32_t i=0;i<length- remainder; i+=2){
-		sum[0] += array[i];
-		sum[1] += array[i+1];
-	}
-	sum[0] += sum[1];
-	if(remainder) sum[0] += array[length-1];
-	sum_all = sum[0];
-
-#elif UNROLLTYPE == 3
-	float sum[]={0.0f,0.0f,0.0f};
-	int32_t remainder = length % 3;
-	#pragma nounroll
-	#pragma novector
-	for(int32_t i=0;i<length - remainder;i+=3){
-		sum[0] += array[i];
-		sum[1] += array[i+1];
-		sum[2] += array[i+2];
-	}
-	sum_all = sum[0] + sum[1] + sum[2];
-	for (int32_t i = 0; i < remainder; i++) {
-    	sum_all += array[length - remainder + i];
-	}
-
 #elif UNROLLTYPE == 4
 	float sum[]={0.0f,0.0f,0.0f, 0.0f};
 	int32_t remainder = length % 4;

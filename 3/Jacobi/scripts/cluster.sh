@@ -20,7 +20,7 @@ export SRUN_CPUS_PER_TASK=1  # value should match the SBATCH --cpus-per-task opt
 
 module load intel
 
-for unroll in {1,2,4,8,16}
+for unroll in {1,2,4,8}
 do
 make clean -C ../
 make UNROLLTYPE=${unroll} -C ../
