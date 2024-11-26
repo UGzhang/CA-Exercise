@@ -19,8 +19,15 @@ CC      := icx
 CFLAGS  := -Wall -pedantic -Werror -std=c99 -O1
 UNROLLTYPE ?= 4
 CFLAGS += -DUNROLLTYPE=$(UNROLLTYPE)
-
+ifeq ($(UNROLLTYPE), 2)
+    CFLAGS += -msse3
+else ifeq ($(UNROLLTYPE), 4)
+    CFLAGS += -mavx
+else ifeq ($(UNROLLTYPE), 8)
+    CFLAGS += -mavx512f
+endif
 LDFLAGS := 
+
 all: jacobi # program is named jacobi
 
 clean:
@@ -35,4 +42,3 @@ $(BIN_PATH)/jacobi: $(BUILD_PATH)/main.o $(BUILD_PATH)/jacobi.o $(BUILD_PATH)/ge
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 	mkdir -p $(dir $@)
 	$(CC) $(INC_FLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
-

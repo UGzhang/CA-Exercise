@@ -19,6 +19,13 @@ CC      := icx
 CFLAGS  := -Wall -pedantic -Werror -std=c99 -O1
 UNROLLTYPE ?= 4
 CFLAGS += -DUNROLLTYPE=$(UNROLLTYPE)
+ifeq ($(UNROLLTYPE), 4)
+    CFLAGS += -msse3
+else ifeq ($(UNROLLTYPE), 8)
+    CFLAGS += -mavx
+else ifeq ($(UNROLLTYPE), 16)
+    CFLAGS += -mavx512f
+endif
 LDFLAGS :=
 
 all: vecSum # program is named vecSum

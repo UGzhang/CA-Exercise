@@ -1,117 +1,96 @@
 #include "vec_sum.h"
+#include <immintrin.h>
 
 float vec_sum(const float * restrict array, int32_t length) {
 	
-	float sum_all = 0.0f;
+	float sum = 0.f;
 
 #if UNROLLTYPE == 1
-	float sum = 0.0f;
+
 	#pragma novector
 	#pragma nounroll
 	for(int i=0;i<length;i++){
 		sum += array[i];
 	}
-	sum_all = sum;
 
-#elif UNROLLTYPE == 2
-	float sum[]={0.0f,0.0f};
-	int32_t remainder = length % 2;
-	#pragma nounroll
-	#pragma novector
-	for(int32_t i=0;i<length- remainder; i+=2){
-		sum[0] += array[i];
-		sum[1] += array[i+1];
-	}
-	sum[0] += sum[1];
-	if(remainder) sum[0] += array[length-1];
-	sum_all = sum[0];
-
-#elif UNROLLTYPE == 3
-	float sum[]={0.0f,0.0f,0.0f};
-	int32_t remainder = length % 3;
-	#pragma nounroll
-	#pragma novector
-	for(int32_t i=0;i<length - remainder;i+=3){
-		sum[0] += array[i];
-		sum[1] += array[i+1];
-		sum[2] += array[i+2];
-	}
-	sum_all = sum[0] + sum[1] + sum[2];
-	for (int32_t i = 0; i < remainder; i++) {
-    	sum_all += array[length - remainder + i];
-	}
-
+// SSE
 #elif UNROLLTYPE == 4
-	float sum[]={0.0f,0.0f,0.0f, 0.0f};
-	int32_t remainder = length % 4;
+	
+	int32_t remainder = length % UNROLLTYPE;
+	__m128 result = _mm_setzero_ps();
+	__m128 accu;
+
 	#pragma nounroll
 	#pragma novector
-	for(int32_t i=0;i<length - remainder;i+=4){
-		sum[0] += array[i];
-		sum[1] += array[i+1];
-		sum[2] += array[i+2];
-		sum[3] += array[i+3];
+	for(int32_t i=0;i<length - remainder;i+=UNROLLTYPE){
+		accu = _mm_loadu_ps(&array[i]);
+		result = _mm_add_ps(result, accu);
 	}
-	sum_all = sum[0] + sum[1] + sum[2] + sum[3];
+
+	// horizontal addition of result
+	__m128 shuf = _mm_movehdup_ps(result);       
+    __m128 sums = _mm_add_ps(result, shuf);
+    shuf = _mm_movehl_ps(shuf, sums); 
+    sums = _mm_add_ss(sums, shuf);
+	sum = _mm_cvtss_f32(sums);
+
 	for (int32_t i = 0; i < remainder; i++) {
-    	sum_all += array[length - remainder + i];
+    	sum += array[length - remainder + i];
 	}
 	
-
+// AVX
 #elif UNROLLTYPE == 8
-	float sum[UNROLLTYPE] = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
+
 	int32_t remainder = length % UNROLLTYPE;
+	__m256 result = _mm256_setzero_ps();
+	__m256 accu;
+
 	#pragma nounroll
 	#pragma novector
 	for(int32_t i=0;i<length - remainder;i+=UNROLLTYPE){
-		sum[0] += array[i];
-		sum[1] += array[i+1];
-		sum[2] += array[i+2];
-		sum[3] += array[i+3];
-		sum[4] += array[i+4];
-		sum[5] += array[i+5];
-		sum[6] += array[i+6];
-		sum[7] += array[i+7];
+		accu = _mm256_loadu_ps(&array[i]);
+		result = _mm256_add_ps(result, accu);
+
 	}
-	for(int i=0;i<UNROLLTYPE;i++){
-		sum_all+=sum[i];
-	}
+
+	// horizontal addition of result
+ 	__m256 t1 = _mm256_hadd_ps(result,result);
+    __m256 t2 = _mm256_hadd_ps(t1,t1);
+    __m128 t3 = _mm256_extractf128_ps(t2,1);
+    __m128 t4 = _mm_add_ss(_mm256_castps256_ps128(t2),t3);
+	sum = _mm_cvtss_f32(t4);  
+	
 	for (int32_t i = 0; i < remainder; i++) {
-    	sum_all += array[length - remainder + i];
+    	sum += array[length - remainder + i];
 	}
 
 
+
+// AVX512
 #elif UNROLLTYPE == 16
-	float sum[UNROLLTYPE] = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
 	int32_t remainder = length % UNROLLTYPE;
+	__m512 result = _mm512_setzero_ps();
+	__m512 accu;
+
 	#pragma nounroll
 	#pragma novector
 	for(int32_t i=0;i<length - remainder;i+=UNROLLTYPE){
-		sum[0] += array[i];
-		sum[1] += array[i+1];
-		sum[2] += array[i+2];
-		sum[3] += array[i+3];
-		sum[4] += array[i+4];
-		sum[5] += array[i+5];
-		sum[6] += array[i+6];
-		sum[7] += array[i+7];
-		sum[8] += array[i+8];
-		sum[9] += array[i+9];
-		sum[10] += array[i+10];
-		sum[11] += array[i+11];
-		sum[12] += array[i+12];
-		sum[13] += array[i+13];
-		sum[14] += array[i+14];
-		sum[15] += array[i+15];
+		accu = _mm512_loadu_ps(&array[i]);
+		result = _mm512_add_ps(result, accu);
 	}
-	for(int i=0;i<UNROLLTYPE;i++){
-		sum_all+=sum[i];
-	}
+
+	// horizontal addition of result
+	__m512 tmp = _mm512_add_ps(result,_mm512_shuffle_f32x4(result,result,_MM_SHUFFLE(0,0,3,2)));
+    __m128 r = _mm512_castps512_ps128(_mm512_add_ps(tmp,_mm512_shuffle_f32x4(tmp,tmp,_MM_SHUFFLE(0,0,0,1))));
+    r = _mm_hadd_ps(r,r);
+    sum = _mm_cvtss_f32(_mm_hadd_ps(r,r));
+
+
 	for (int32_t i = 0; i < remainder; i++) {
-    	sum_all += array[length - remainder + i];
+    	sum += array[length - remainder + i];
 	}
 #endif
 
-	return sum_all;
+	return sum;
 }
 
