@@ -35,12 +35,17 @@ int main(int argc, char *argv[]) {
 	for(int32_t i = 0; i < array_size; i++){
 		array[i] = (float)i;
 	}
-
-	// float result = 0.f;	
+#ifdef DEBUG
+	float result = 0.f;	
+#endif	
 	for(runs = 1u; actual_runtime_us < minimal_runtime_ms * 1000; runs = runs << 1u) {
 		start = get_time_micros();
 		for(uint64_t i = 0u; i < runs; i++) {
+#ifdef DEBUG
+		result =
+#endif					
 			vec_sum(array, array_size);
+
 		}
 		stop  = get_time_micros();
 		actual_runtime_us = stop - start;
@@ -48,8 +53,11 @@ int main(int argc, char *argv[]) {
 
 	runs /= 2; // TODO Explain/comment why this is necessary
 
+#ifdef DEBUG
+	printf("%f, %d\n", result, array_size*(array_size-1)/2);
+#endif
 	// result check
-	// printf("%f, %d\n", result, array_size*(array_size-1)/2);
+	
  
 	//calculate and print
 	adds_per_second = (double)array_size / actual_runtime_us * runs * 1e6; // Measured performance as floating point additions per second
@@ -61,7 +69,7 @@ int main(int argc, char *argv[]) {
 	// 	4. uint64_t minimal runtime in milliseconds
 	fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", array_size_bytes/1024, adds_per_second, actual_runtime_us/1000, minimal_runtime_ms);
 
-	free(array);
+	_mm_free(array);
 
 	return 0;
 }

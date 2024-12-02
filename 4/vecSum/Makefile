@@ -16,16 +16,9 @@ INC_DIRS  := $(sort $(shell find $(INC_PATH) -type d))
 INC_FLAGS := $(addprefix -iquote ,$(INC_DIRS))
 
 CC      := icx
-CFLAGS  := -Wall -pedantic -Werror -std=c99 -O1
+CFLAGS  := -Wall -pedantic -Werror -std=c99 -O3 -mavx
 UNROLLTYPE ?= 4
 CFLAGS += -DUNROLLTYPE=$(UNROLLTYPE)
-ifeq ($(UNROLLTYPE), 4)
-    CFLAGS += -msse3
-else ifeq ($(UNROLLTYPE), 8)
-    CFLAGS += -mavx
-else ifeq ($(UNROLLTYPE), 16)
-    CFLAGS += -mavx512f
-endif
 LDFLAGS :=
 
 all: vecSum # program is named vecSum

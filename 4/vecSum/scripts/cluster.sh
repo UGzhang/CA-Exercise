@@ -22,14 +22,14 @@ export SRUN_CPUS_PER_TASK=1  # value should match the SBATCH --cpus-per-task opt
 module load intel
 
 
-for unroll in {1,4,8,16}
+for unroll in {2,3,4,8}
 do
     make clean -C ../
-    make UNROLLTYPE=${unroll} -C ../ 
+    make UNROLLTYPE=$unroll -C ../ 
 
 
     # This line creates / overrides a result csv file
-    echo "ArraySize,AdditionsPerSecond,ActualRuntime,MinimalRuntime" > result_unroll_$unroll.csv
+    echo "ArraySize,AdditionsPerSecond,ActualRuntime,MinimalRuntime" > result_unroll_AVX_$unroll.csv
 
     STEPS=16
     runtime_ms=1000
@@ -37,7 +37,7 @@ do
     do
 
         array_size=$((2 ** i))
-        srun ../bin/vecSum $array_size $runtime_ms >> result_unroll_$unroll.csv
+        srun ../bin/vecSum $array_size $runtime_ms >> result_unroll_AVX_$unroll.csv
 
     done
 
