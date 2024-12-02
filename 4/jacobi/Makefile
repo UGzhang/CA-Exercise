@@ -18,13 +18,15 @@ INC_FLAGS := $(addprefix -iquote ,$(INC_DIRS))
 CC      := icx
 CFLAGS  := -Wall -pedantic -Werror -std=c99 -O1
 UNROLLTYPE ?= 4
-CFLAGS += -DUNROLLTYPE=$(UNROLLTYPE)
-ifeq ($(UNROLLTYPE), 2)
-    CFLAGS += -msse3
-else ifeq ($(UNROLLTYPE), 4)
-    CFLAGS += -mavx
-else ifeq ($(UNROLLTYPE), 8)
-    CFLAGS += -mavx512f
+# CFLAGS += -DUNROLLTYPE=$(UNROLLTYPE)
+ifeq ($(strip $(SIMD)), SSE)
+    CFLAGS += -D__ISA_SSE__ -msse3 
+else ifeq ($(strip $(SIMD)), AVX)
+    CFLAGS += -D__ISA_AVX__ -mavx
+else ifeq ($(strip $(SIMD)), AVX512)
+    CFLAGS += -D__ISA_AVX512__ -mavx512f
+else
+	CFLAGS += -D__ISA_NONE__
 endif
 LDFLAGS := 
 

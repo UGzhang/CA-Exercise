@@ -20,10 +20,10 @@ export SRUN_CPUS_PER_TASK=1  # value should match the SBATCH --cpus-per-task opt
 
 module load intel
 
-for unroll in {1,2,4,8}
+for unroll in {NONE,SSE,AVX,AVX512}
 do
 make clean -C ../
-make UNROLLTYPE=${unroll} -C ../
+make SIMD=${unroll} -C ../
 
 # execute measurement with for loop
 # 18 measurement points, exponentially distributed: 1 KiB (2^10 B) - 128 MiB (2^27 B), each with 1000 ms set as the minimal runtime.

@@ -9,7 +9,7 @@
 
 void jacobi(const double * restrict grid_source, double * restrict grid_target, int32_t x, int32_t y) {
 	
-#if UNROLLTYPE == 1
+#if defined(__ISA_NONE__)
 	for(int32_t j = 1; j < y-1; j++){
 		#pragma nounroll
 		#pragma novector
@@ -19,17 +19,18 @@ void jacobi(const double * restrict grid_source, double * restrict grid_target, 
 	}
 
 //SSE
-#elif UNROLLTYPE == 2
-	int32_t remainder = (x-2) % UNROLLTYPE;
+#elif defined(__ISA_SSE__)
+	int32_t remainder = (x-2) % 2;
 	__m128d accu[4];
 	__m128d tmp[2];
 	__m128d result;
 	const __m128d factor = _mm_set_pd(0.25,0.25);
-
+	#pragma novector
+	#pragma nounroll
 	for(int32_t j = 1; j < y-1; j++){
-		#pragma nounroll
-		#pragma novector		
-		for(int32_t i = 1; i < x-1-remainder; i+=UNROLLTYPE){
+		#pragma novector
+		#pragma unroll 2
+		for(int32_t i = 1; i < x-1-remainder; i+=2){
 
 			accu[0] = _mm_loadu_pd(&grid_source(i-1,j));
 			accu[1] = _mm_loadu_pd(&grid_source(i+1,j));
@@ -52,17 +53,17 @@ void jacobi(const double * restrict grid_source, double * restrict grid_target, 
 	}
 
 //AVX
-#elif UNROLLTYPE == 4
-	int32_t remainder = (x-2) % UNROLLTYPE;
+#elif defined(__ISA_AVX__)
+	int32_t remainder = (x-2) % 4;
 	__m256d accu[4];
 	__m256d tmp[2];
 	__m256d result;
 	const __m256d factor = _mm256_set_pd(0.25,0.25,0.25,0.25);
 
 	for(int32_t j = 1; j < y-1; j++){
-		#pragma nounroll
-		#pragma novector		
-		for(int32_t i = 1; i < x-1-remainder; i+=UNROLLTYPE){
+		#pragma novector
+		#pragma unroll (4)		
+		for(int32_t i = 1; i < x-1-remainder; i+=4){
 
 			accu[0] = _mm256_loadu_pd(&grid_source(i-1,j));
 			accu[1] = _mm256_loadu_pd(&grid_source(i+1,j));
@@ -85,17 +86,17 @@ void jacobi(const double * restrict grid_source, double * restrict grid_target, 
 	}
 
 //AVX512
-#elif UNROLLTYPE == 8
-	int32_t remainder = (x-2) % UNROLLTYPE;
+#elif defined(__ISA_AVX512__)
+	int32_t remainder = (x-2) % 8;
 	__m512d accu[4];
 	__m512d tmp[2];
 	__m512d result;
 	const __m512d factor = _mm512_set_pd(0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25);
 
 	for(int32_t j = 1; j < y-1; j++){
-		#pragma nounroll
-		#pragma novector		
-		for(int32_t i = 1; i < x-1-remainder; i+=UNROLLTYPE){
+		#pragma novector	
+		#pragma unroll (8)	
+		for(int32_t i = 1; i < x-1-remainder; i+=8){
 
 			accu[0] = _mm512_loadu_pd(&grid_source(i-1,j));
 			accu[1] = _mm512_loadu_pd(&grid_source(i+1,j));
