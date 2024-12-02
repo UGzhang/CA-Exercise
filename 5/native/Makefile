@@ -11,14 +11,19 @@ SRC_PATH   := $(ROOT_PATH)/src
 BUILD_PATH := $(ROOT_PATH)/build
 BIN_PATH   := $(ROOT_PATH)/bin
 
+LIKWID_INC ?= -I/usr/local/include
+LIKWID_DEFINES ?= -DLIKWID_PERFMON
+LIKWID_LIB ?= -L/usr/local/lib
+
 INC_PATH  := $(ROOT_PATH)/include
 INC_DIRS  := $(sort $(shell find $(INC_PATH) -type d))
-INC_FLAGS := $(addprefix -iquote ,$(INC_DIRS))
+INC_FLAGS := $(addprefix -iquote ,$(INC_DIRS)) ${LIKWID_INC} -DLIKWID_PERFMON
+
 
 CC      := icx
-CFLAGS  := -Wall -pedantic -Werror -std=c99 -O3 -xHost -pg
+CFLAGS  := -Wall -pedantic -std=c99 -O3 -xHost
 
-LDFLAGS := 
+LDFLAGS := ${LIKWID_LIB} -llikwid
 all: jacobi # program is named jacobi
 
 clean:
@@ -32,5 +37,5 @@ $(BIN_PATH)/jacobi: $(BUILD_PATH)/main.o $(BUILD_PATH)/jacobi.o $(BUILD_PATH)/ge
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 	mkdir -p $(dir $@)
-	$(CC) $(INC_FLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
+	$(CC) $(INC_FLAGS) $(CFLAGS) -MMD -MP -c $< -o $@ 
 

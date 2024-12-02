@@ -1,6 +1,7 @@
 #define _POSIX_C_SOURCE 199309L
 #include "jacobi.h"
 
+
 #define Type double
 
 #define grid_source(i,j)   grid_source[i + (j) * x]

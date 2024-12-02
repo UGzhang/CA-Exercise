@@ -2,6 +2,7 @@
 #define JACOBI_H
 
 #include <stdint.h>
+#include <likwid-marker.h>
 
 /* This function iterates over a grid to perform a jacobi time step.
  */

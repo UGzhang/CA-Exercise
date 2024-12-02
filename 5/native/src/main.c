@@ -24,16 +24,13 @@ static void usage_msg(void) {
 
 int main(int argc, char *argv[]){
     
-    if(argc != 2 || argv == NULL) {
+    if(argc != 3 || argv == NULL) {
 		usage_msg();
 		return -1;
 	}
 
-    const uint64_t allocated_mem = strtoull(argv[1], NULL, 10);
-    const uint32_t edge_length = sqrt(allocated_mem * 1024 / (2 * sizeof(Type)));
-
-    const int32_t dx = edge_length;
-    const int32_t dy = edge_length;
+    const int32_t dx = atoi(argv[1]);
+    const int32_t dy = atoi(argv[2]);
 
     const uint64_t size = dx * dy * sizeof(Type);
     Type* source = (Type*)_mm_malloc(size, 64);
@@ -59,17 +56,19 @@ int main(int argc, char *argv[]){
     uint64_t actual_runtime_us = 0u;
     uint64_t ts = 0u;
 
-
+LIKWID_MARKER_INIT;
     for(ts = 1u; actual_runtime_us < minimal_runtime_ms * 1000; ts = ts << 1u) {
         uint64_t start = get_time_micros();
+        LIKWID_MARKER_START("kernel");
         for(uint32_t t = 0; t < ts; t++){
             jacobi(source, target, dx, dy);
             swap(&target, &source);
         }
+        LIKWID_MARKER_STOP("kernel");
         uint64_t stop = get_time_micros();
         actual_runtime_us = stop - start;
     }
-
+LIKWID_MARKER_CLOSE;
     ts = ts >> 1u;
 
     // draw_grid(source, dx, dy, "./data.ppm");
@@ -81,7 +80,7 @@ int main(int argc, char *argv[]){
 	// 	2. double   number of mega updates per second
 	// 	3. uint64_t actual runtime in milliseconds
 	// 	4. uint64_t minimal runtime in milliseconds
-    fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", allocated_mem, mega_updates_per_sec, actual_runtime_us/1000, minimal_runtime_ms);
+    fprintf(stdout, "%" PRIu64 ",%lf,%" PRIu64 ",%" PRIu64 "\n", size*2, mega_updates_per_sec, actual_runtime_us/1000, minimal_runtime_ms);
 
     _mm_free(source);
     _mm_free(target);
