@@ -1,0 +1,671 @@
+### Starting TaskPrologue of job 1747966 on f1253 at Mon Jan 20 10:32:53 CET 2025
+#   SLURM_JOB_NODELIST=f1253
+#   SLURM_JOB_NUM_NODES=1
+#   SLURM_NTASKS=1
+#   SLURM_NPROCS=1
+#   SLURM_TASKS_PER_NODE=1
+#   SLURM_JOB_CPUS_PER_NODE=72
+#   SLURM_EXPORT_ENV=NONE
+Running on cores 0-71 with governor powersave
+### Finished TaskPrologue
++ set -v
+
+# To ensure 'srun' runs as expected
+export SLURM_EXPORT_ENV=ALL
++ export SLURM_EXPORT_ENV=ALL
++ SLURM_EXPORT_ENV=ALL
+export SRUN_CPUS_PER_TASK=1  # value should match the SBATCH --cpus-per-task option
++ export SRUN_CPUS_PER_TASK=1
++ SRUN_CPUS_PER_TASK=1
+
+# B_X: blocking factor
+module load intel
++ module load intel
+++ /usr/bin/tclsh /apps/modules/modulecmd.tcl bash load intel
++ eval 'CPATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga/include;' export 'CPATH;' 'LD_LIBRARY_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/x64:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga/host/linux64/lib:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/compiler/lib/intel64_lin;' export 'LD_LIBRARY_PATH;' 'OCL_ICD_FILENAMES=libintelocl_emu.so:libalteracl.so:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/x64/libintelocl.so;' export 'OCL_ICD_FILENAMES;' 'MANPATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/documentation/en/man/common:::/apps/hpc-workspace/1.4.0-alex/share/man:/apps/hpc-workspace/1.4.0-alex/share/man;' export 'MANPATH;' 'CMPLR_ROOT=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1;' export 'CMPLR_ROOT;' 'LIBRARY_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/compiler/lib/intel64_lin:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib;' export 'LIBRARY_PATH;' '_LMFILES_=/apps/modules/data/compiler/intel/2023.2.1;' export '_LMFILES_;' 'LOADEDMODULES=intel/2023.2.1;' export 'LOADEDMODULES;' 'CMAKE_PREFIX_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/IntelDPCPP:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/.;' export 'CMAKE_PREFIX_PATH;' 'CXX=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/icpx;' export 'CXX;' 'PKG_CONFIG_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/lib/pkgconfig;' export 'PKG_CONFIG_PATH;' 'FPGA_VARS_ARGS=;' export 'FPGA_VARS_ARGS;' 'INTEL_ONEAPI_COMPILERS_ROOT=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk;' export 'INTEL_ONEAPI_COMPILERS_ROOT;' 'ACL_BOARD_VENDOR_PATH=/opt/Intel/OpenCLFPGA/oneAPI/Boards;' export 'ACL_BOARD_VENDOR_PATH;' '__MODULES_LMALTNAME=intel/2023.2.1\&as\|intel/default\&as\|intel/latest;' export '__MODULES_LMALTNAME;' '__MODULES_LMCONFLICT=intel/2023.2.1\&intel-oneapi-compilers;' export '__MODULES_LMCONFLICT;' 'FC=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/ifx;' export 'FC;' '__MODULES_SHARE_MANPATH=:1;' export '__MODULES_SHARE_MANPATH;' 'NLSPATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/compiler/lib/intel64_lin/locale/%l_%t/%N;' export 'NLSPATH;' 'F77=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/ifx;' export 'F77;' 'PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga/bin:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/intel64:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpc-workspace/1.4.0-alex/bin:/apps/hpc-workspace/1.4.0-alex/bin;' export 'PATH;' 'CC=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/icx;' export 'CC;' 'INTELFPGAOCLSDKROOT=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga;' export 'INTELFPGAOCLSDKROOT;' 'DIAGUTIL_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/sys_check/sys_check.sh;' export 'DIAGUTIL_PATH;' 'FPGA_VARS_DIR=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga;' export 'FPGA_VARS_DIR;' test '0;'
+CPATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga/include; export CPATH; LD_LIBRARY_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/x64:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga/host/linux64/lib:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/compiler/lib/intel64_lin; export LD_LIBRARY_PATH; OCL_ICD_FILENAMES=libintelocl_emu.so:libalteracl.so:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/x64/libintelocl.so; export OCL_ICD_FILENAMES; MANPATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/documentation/en/man/common:::/apps/hpc-workspace/1.4.0-alex/share/man:/apps/hpc-workspace/1.4.0-alex/share/man; export MANPATH; CMPLR_ROOT=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1; export CMPLR_ROOT; LIBRARY_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/compiler/lib/intel64_lin:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib; export LIBRARY_PATH; _LMFILES_=/apps/modules/data/compiler/intel/2023.2.1; export _LMFILES_; LOADEDMODULES=intel/2023.2.1; export LOADEDMODULES; CMAKE_PREFIX_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/IntelDPCPP:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/.; export CMAKE_PREFIX_PATH; CXX=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/icpx; export CXX; PKG_CONFIG_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/lib/pkgconfig; export PKG_CONFIG_PATH; FPGA_VARS_ARGS=; export FPGA_VARS_ARGS; INTEL_ONEAPI_COMPILERS_ROOT=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk; export INTEL_ONEAPI_COMPILERS_ROOT; ACL_BOARD_VENDOR_PATH=/opt/Intel/OpenCLFPGA/oneAPI/Boards; export ACL_BOARD_VENDOR_PATH; __MODULES_LMALTNAME=intel/2023.2.1\&as\|intel/default\&as\|intel/latest; export __MODULES_LMALTNAME; __MODULES_LMCONFLICT=intel/2023.2.1\&intel-oneapi-compilers; export __MODULES_LMCONFLICT; FC=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/ifx; export FC; __MODULES_SHARE_MANPATH=:1; export __MODULES_SHARE_MANPATH; NLSPATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/compiler/lib/intel64_lin/locale/%l_%t/%N; export NLSPATH; F77=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/ifx; export F77; PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga/bin:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/intel64:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpc-workspace/1.4.0-alex/bin:/apps/hpc-workspace/1.4.0-alex/bin; export PATH; CC=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/icx; export CC; INTELFPGAOCLSDKROOT=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga; export INTELFPGAOCLSDKROOT; DIAGUTIL_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/sys_check/sys_check.sh; export DIAGUTIL_PATH; FPGA_VARS_DIR=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga; export FPGA_VARS_DIR; test 0;
+++ CPATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga/include
+++ export CPATH
+++ LD_LIBRARY_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/x64:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga/host/linux64/lib:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/compiler/lib/intel64_lin
+++ export LD_LIBRARY_PATH
+++ OCL_ICD_FILENAMES=libintelocl_emu.so:libalteracl.so:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/x64/libintelocl.so
+++ export OCL_ICD_FILENAMES
+++ MANPATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/documentation/en/man/common:::/apps/hpc-workspace/1.4.0-alex/share/man:/apps/hpc-workspace/1.4.0-alex/share/man
+++ export MANPATH
+++ CMPLR_ROOT=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1
+++ export CMPLR_ROOT
+++ LIBRARY_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/compiler/lib/intel64_lin:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib
+++ export LIBRARY_PATH
+++ _LMFILES_=/apps/modules/data/compiler/intel/2023.2.1
+++ export _LMFILES_
+++ LOADEDMODULES=intel/2023.2.1
+++ export LOADEDMODULES
+++ CMAKE_PREFIX_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/IntelDPCPP:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/.
+++ export CMAKE_PREFIX_PATH
+++ CXX=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/icpx
+++ export CXX
+++ PKG_CONFIG_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/lib/pkgconfig
+++ export PKG_CONFIG_PATH
+++ FPGA_VARS_ARGS=
+++ export FPGA_VARS_ARGS
+++ INTEL_ONEAPI_COMPILERS_ROOT=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk
+++ export INTEL_ONEAPI_COMPILERS_ROOT
+++ ACL_BOARD_VENDOR_PATH=/opt/Intel/OpenCLFPGA/oneAPI/Boards
+++ export ACL_BOARD_VENDOR_PATH
+++ __MODULES_LMALTNAME='intel/2023.2.1&as|intel/default&as|intel/latest'
+++ export __MODULES_LMALTNAME
+++ __MODULES_LMCONFLICT='intel/2023.2.1&intel-oneapi-compilers'
+++ export __MODULES_LMCONFLICT
+++ FC=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/ifx
+++ export FC
+++ __MODULES_SHARE_MANPATH=:1
+++ export __MODULES_SHARE_MANPATH
+++ NLSPATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/compiler/lib/intel64_lin/locale/%l_%t/%N
+++ export NLSPATH
+++ F77=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/ifx
+++ export F77
+++ PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga/bin:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/intel64:/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpc-workspace/1.4.0-alex/bin:/apps/hpc-workspace/1.4.0-alex/bin
+++ export PATH
+++ CC=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/bin/icx
+++ export CC
+++ INTELFPGAOCLSDKROOT=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga
+++ export INTELFPGAOCLSDKROOT
+++ DIAGUTIL_PATH=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/sys_check/sys_check.sh
+++ export DIAGUTIL_PATH
+++ FPGA_VARS_DIR=/apps/SPACK/0.19.1/opt/linux-almalinux8-icelake/gcc-8.5.0/intel-oneapi-compilers-2023.2.1-axze7ocbc5zpklxb6kr5h2d5hbpf2lxk/compiler/2023.2.1/linux/lib/oclfpga
+++ export FPGA_VARS_DIR
+++ test 0
++ _mlstatus=0
++ return 0
+
+# execute measurement with for loop
+# 18 measurement points, exponentially distributed: 1 KiB (2^10 B) - 128 GiB (2^37 B), each with 1000 ms set as the minimal runtime.
+# results should be appended to the result.csv (see '>>' operator)
+
+mem_size=1
++ mem_size=1
+echo "AllocatedMem(GiB),MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime,Bx,By" > result_avx256_L1_BxBy.csv
++ echo 'AllocatedMem(GiB),MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime,Bx,By'
+# This line creates / overrides a result csv file
+
+target_product=5000  
++ target_product=5000
+bx=2           
++ bx=2
+growth_rate=1.5   
++ growth_rate=1.5
+
+while [ $bx -le $target_product ]; do
+    by=$(echo "scale=0; $target_product / $bx" | bc)
+
+    if [ $by -le 0 ]; then
+        break
+    fi
+
+    make clean -C ../
+    make B_X=$bx B_Y=$by -C ../
+    srun ../bin/jacobi $mem_size >> result_avx256_L1_BxBy.csv
+
+    bx=$(echo "$bx * $growth_rate" | bc | awk '{print int($1)}')
+done
++ '[' 2 -le 5000 ']'
+++ echo 'scale=0; 5000 / 2'
+++ bc
++ by=2500
++ '[' 2500 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=2 B_Y=2500 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=2 -DBy=2500 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=2 -DBy=2500 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=2 -DBy=2500 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=2 -DBy=2500 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=2 -DBy=2500 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '2 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=3
++ '[' 3 -le 5000 ']'
+++ echo 'scale=0; 5000 / 3'
+++ bc
++ by=1666
++ '[' 1666 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=3 B_Y=1666 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=3 -DBy=1666 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=3 -DBy=1666 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=3 -DBy=1666 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=3 -DBy=1666 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=3 -DBy=1666 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '3 * 1.5'
+++ awk '{print int($1)}'
+++ bc
++ bx=4
++ '[' 4 -le 5000 ']'
+++ echo 'scale=0; 5000 / 4'
+++ bc
++ by=1250
++ '[' 1250 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=4 B_Y=1250 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=4 -DBy=1250 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=4 -DBy=1250 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=4 -DBy=1250 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=4 -DBy=1250 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=4 -DBy=1250 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '4 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=6
++ '[' 6 -le 5000 ']'
+++ echo 'scale=0; 5000 / 6'
+++ bc
++ by=833
++ '[' 833 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=6 B_Y=833 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=6 -DBy=833 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=6 -DBy=833 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=6 -DBy=833 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=6 -DBy=833 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=6 -DBy=833 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '6 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=9
++ '[' 9 -le 5000 ']'
+++ echo 'scale=0; 5000 / 9'
+++ bc
++ by=555
++ '[' 555 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=9 B_Y=555 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=9 -DBy=555 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=9 -DBy=555 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=9 -DBy=555 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=9 -DBy=555 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=9 -DBy=555 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '9 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=13
++ '[' 13 -le 5000 ']'
+++ echo 'scale=0; 5000 / 13'
+++ bc
++ by=384
++ '[' 384 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=13 B_Y=384 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=13 -DBy=384 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=13 -DBy=384 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=13 -DBy=384 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=13 -DBy=384 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=13 -DBy=384 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '13 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=19
++ '[' 19 -le 5000 ']'
+++ echo 'scale=0; 5000 / 19'
+++ bc
++ by=263
++ '[' 263 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=19 B_Y=263 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=19 -DBy=263 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=19 -DBy=263 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=19 -DBy=263 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=19 -DBy=263 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=19 -DBy=263 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '19 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=28
++ '[' 28 -le 5000 ']'
+++ echo 'scale=0; 5000 / 28'
+++ bc
++ by=178
++ '[' 178 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=28 B_Y=178 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=28 -DBy=178 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=28 -DBy=178 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=28 -DBy=178 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=28 -DBy=178 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=28 -DBy=178 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '28 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=42
++ '[' 42 -le 5000 ']'
+++ echo 'scale=0; 5000 / 42'
+++ bc
++ by=119
++ '[' 119 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=42 B_Y=119 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=42 -DBy=119 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=42 -DBy=119 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=42 -DBy=119 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=42 -DBy=119 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=42 -DBy=119 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '42 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=63
++ '[' 63 -le 5000 ']'
+++ echo 'scale=0; 5000 / 63'
+++ bc
++ by=79
++ '[' 79 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=63 B_Y=79 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=63 -DBy=79 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=63 -DBy=79 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=63 -DBy=79 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=63 -DBy=79 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=63 -DBy=79 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '63 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=94
++ '[' 94 -le 5000 ']'
+++ echo 'scale=0; 5000 / 94'
+++ bc
++ by=53
++ '[' 53 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=94 B_Y=53 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=94 -DBy=53 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=94 -DBy=53 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=94 -DBy=53 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=94 -DBy=53 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=94 -DBy=53 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '94 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=141
++ '[' 141 -le 5000 ']'
+++ echo 'scale=0; 5000 / 141'
+++ bc
++ by=35
++ '[' 35 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=141 B_Y=35 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=141 -DBy=35 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=141 -DBy=35 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=141 -DBy=35 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=141 -DBy=35 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=141 -DBy=35 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '141 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=211
++ '[' 211 -le 5000 ']'
+++ echo 'scale=0; 5000 / 211'
+++ bc
++ by=23
++ '[' 23 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=211 B_Y=23 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=211 -DBy=23 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=211 -DBy=23 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=211 -DBy=23 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=211 -DBy=23 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=211 -DBy=23 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '211 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=316
++ '[' 316 -le 5000 ']'
+++ echo 'scale=0; 5000 / 316'
+++ bc
++ by=15
++ '[' 15 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=316 B_Y=15 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=316 -DBy=15 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=316 -DBy=15 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=316 -DBy=15 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=316 -DBy=15 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=316 -DBy=15 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '316 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=474
++ '[' 474 -le 5000 ']'
+++ echo 'scale=0; 5000 / 474'
+++ bc
++ by=10
++ '[' 10 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=474 B_Y=10 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=474 -DBy=10 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=474 -DBy=10 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=474 -DBy=10 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=474 -DBy=10 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=474 -DBy=10 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '474 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=711
++ '[' 711 -le 5000 ']'
+++ echo 'scale=0; 5000 / 711'
+++ bc
++ by=7
++ '[' 7 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=711 B_Y=7 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=711 -DBy=7 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=711 -DBy=7 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=711 -DBy=7 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=711 -DBy=7 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=711 -DBy=7 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '711 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=1066
++ '[' 1066 -le 5000 ']'
+++ echo 'scale=0; 5000 / 1066'
+++ bc
++ by=4
++ '[' 4 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=1066 B_Y=4 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=1066 -DBy=4 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=1066 -DBy=4 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=1066 -DBy=4 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=1066 -DBy=4 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=1066 -DBy=4 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '1066 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=1599
++ '[' 1599 -le 5000 ']'
+++ echo 'scale=0; 5000 / 1599'
+++ bc
++ by=3
++ '[' 3 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=1599 B_Y=3 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=1599 -DBy=3 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=1599 -DBy=3 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=1599 -DBy=3 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=1599 -DBy=3 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=1599 -DBy=3 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '1599 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=2398
++ '[' 2398 -le 5000 ']'
+++ echo 'scale=0; 5000 / 2398'
+++ bc
++ by=2
++ '[' 2 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=2398 B_Y=2 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=2398 -DBy=2 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=2398 -DBy=2 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=2398 -DBy=2 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=2398 -DBy=2 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=2398 -DBy=2 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '2398 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=3597
++ '[' 3597 -le 5000 ']'
+++ echo 'scale=0; 5000 / 3597'
+++ bc
++ by=1
++ '[' 1 -le 0 ']'
++ make clean -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+rm -rf ./build ./bin
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ make B_X=3597 B_Y=1 -C ../
+make: Entering directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=3597 -DBy=1 -MMD -MP -c src/main.c -o build/main.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=3597 -DBy=1 -MMD -MP -c src/jacobi.c -o build/jacobi.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=3597 -DBy=1 -MMD -MP -c src/get_time.c -o build/get_time.o
+mkdir -p build/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=3597 -DBy=1 -MMD -MP -c src/draw.c -o build/draw.o
+mkdir -p bin/
+icx -iquote ./include -Wall -pedantic -Werror -std=c99 -O1 -mavx -DBx=3597 -DBy=1 build/main.o build/jacobi.o build/get_time.o build/draw.o -o bin/jacobi 
+make: Leaving directory '/home/hpc/hpcv/hpcv160v/CA/7/jacobi'
++ srun ../bin/jacobi 1
+++ echo '3597 * 1.5'
+++ bc
+++ awk '{print int($1)}'
++ bx=5395
++ '[' 5395 -le 5000 ']'
+=== JOB_STATISTICS ===
+=== current date     : Mon Jan 20 10:34:15 CET 2025
+= Job-ID             : 1747966 on fritz
+= Job-Name           : cluster_bxby.sh
+= Job-Command        : /home/hpc/hpcv/hpcv160v/CA/7/jacobi/scripts/cluster_bxby.sh
+= Initial workdir    : /home/hpc/hpcv/hpcv160v/CA/7/jacobi/scripts
+= Queue/Partition    : singlenode
+= Slurm account      : hpcv with QOS=normal
+= Requested resources:  for 00:30:00
+= Elapsed runtime    : 00:01:25
+= Total RAM usage    : 0.0 GiB 
+= Node list          : f1253
+= Subm/Elig/Start/End: 2025-01-20T10:20:18 / 2025-01-20T10:20:18 / 2025-01-20T10:32:50 / 2025-01-20T10:34:15
+======================
+=== Quota infos ======
+    Path              Used     SoftQ    HardQ    Gracetime  Filec    FileQ    FiHaQ    FileGrace    
+    /home/woody       2228.1M  1000.0G  1500.0G        N/A  17,292    5,000K   7,500K        N/A    
+    /home/hpc           78.6G   104.9G   209.7G        N/A     403K     500K   1,000K        N/A    
+    /lustre              4.0K     0.0K     0.0K        N/A       1       80K     250K        N/A    
+======================
