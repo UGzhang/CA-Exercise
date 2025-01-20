@@ -6,5 +6,5 @@ set xlabel "Memory(GiB)"
 set ylabel "MUp/s"
 set title "Performance Analysis"
 plot "result_avx256.csv" using 1:2 with linespoints title "No Spatial Blocking", \
-     "result_avx256_L1.csv" using 1:2 with linespoints title "Spatial Blocking = 1638", \
-     "result_avx256_L2.csv" using 1:2 with linespoints title "Spatial Blocking = 43690"
+     "result_avx256_L1.csv" using 1:2 with linespoints title "Spatial Blocking = 1228", \
+     "result_avx256_L2.csv" using 1:2 with linespoints title "Spatial Blocking = 32768"

@@ -24,12 +24,12 @@ module load intel
 # 18 measurement points, exponentially distributed: 1 KiB (2^10 B) - 128 GiB (2^37 B), each with 1000 ms set as the minimal runtime.
 # results should be appended to the result.csv (see '>>' operator)
 
-STEPS=8
+STEPS=17
 mem_size=1
 
-echo "AllocatedMem(GiB),MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime" > result_avx256.csv
-echo "AllocatedMem(GiB),MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime" > result_avx256_L1.csv
-echo "AllocatedMem(GiB),MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime" > result_avx256_L2.csv
+echo "AllocatedMem(MiB),MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime" > result_avx256.csv
+echo "AllocatedMem(MiB),MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime" > result_avx256_L1.csv
+echo "AllocatedMem(MiB),MegaUpdatesPerSecond,ActualRuntime,MinimalRuntime" > result_avx256_L2.csv
 # This line creates / overrides a result csv file
 
 
@@ -47,7 +47,7 @@ do
 done
 
 make clean -C ../
-make B_X=1638 -C ../
+make B_X=1228 -C ../
 
 
 for i in $(seq 0 $((STEPS-1)))
@@ -59,7 +59,7 @@ do
 done
 
 make clean -C ../
-make B_X=43690 -C ../
+make B_X=32768 -C ../
 
 for i in $(seq 0 $((STEPS-1)))
 do

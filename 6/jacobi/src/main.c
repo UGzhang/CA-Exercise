@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
 	}
 
     const uint64_t allocated_mem = strtoull(argv[1], NULL, 10);
-    const uint64_t edge_length = sqrt(allocated_mem * 0.5 / sizeof(Type)  * 1024 * 1024 * 1024);
+    const uint64_t edge_length = sqrt(allocated_mem * 0.5 / sizeof(Type)  * 1024 * 1024);
 
     const int64_t dx = edge_length;
     const int64_t dy = edge_length;
