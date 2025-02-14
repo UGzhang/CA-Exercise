@@ -29,7 +29,7 @@ do
 
 
     # This line creates / overrides a result csv file
-    echo "ArraySize,AdditionsPerSecond,ActualRuntime,MinimalRuntime" >> result_unroll_$unroll.csv
+    echo "ArraySize,AdditionsPerSecond,ActualRuntime,MinimalRuntime" > result_unroll_$unroll.csv
 
     STEPS=16
     runtime_ms=1000
